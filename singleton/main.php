@@ -1,5 +1,8 @@
 <?php
 require_once('Singleton.class.php');
+require_once('Config.class.php');
 
-$object1 = Singleton::getInstance();
-var_dump($object1);
+ $config = Config::getInstance();
+ $config1 = Config::getInstance();
+$config->setValue('name', 'Habeeb');
+echo $config1->getValue('name');

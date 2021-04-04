@@ -1,17 +1,27 @@
 <?php
 
-class Singleton{
-    private static $instance = null;
+class Singleton
+{
+    
+    private static $instances = null;
 
-    private function __construct(){
-        echo "Singleton created";
+    public function __construct(){}
+
+    public function __clone(){}
+
+    public function __wakeup()
+    {
+        throw new \Exception("Cannot  unserialize singleton");
     }
 
     public static function getInstance()
     {
-        if(self::$instance == null){
-            self::$instance = new Singleton();
+        //get the name of the subclass
+        $subclass = static::class;
+         
+        if(!isset(self::$instances[$subclass])){
+            self::$instances[$subclass] = new static();
         }
-        return self::$instance;
+        return self::$instances[$subclass];
     }
 }
